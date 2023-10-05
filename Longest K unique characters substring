@@ -1,0 +1,41 @@
+
+//we need to calculate the longest substring with k unique letters
+//so we use a map for storing the frequency of characters in the current window and update the maximum length when map size is equal to k
+//when map size>k ,we start to remove characters from left till map size not equal to k ,after each removal increase the left pointer by 1
+//eg- String s="aabacbebebe";int k=3; longest substring with 3 unique characters is-"cbebebe" ans is 7
+import java.util.*;
+public class longestkuniquechar {
+    public static void main(String[] args) {
+        String s="aabacbebebe";
+        int k=3;
+        System.out.println(fun(s,k));
+    }
+    public static int fun(String s,int k){
+        HashMap<Character,Integer> map=new HashMap<>();
+        int l=0,r=0,max=-1;
+        while (r<s.length())
+        {
+            char ch=s.charAt(r);
+            map.put(ch,map.getOrDefault(ch,0)+1);
+            if(map.size()==k)
+            {
+                max=Math.max(max,r-l+1);
+            }
+            if (map.size()>k)
+            {
+                while(map.size()>k)
+                {
+                    char ch1=s.charAt(l);
+                    if(map.get(ch1)==1)
+                        map.remove(ch1);
+                    else
+                        map.put(ch1,map.get(ch1)-1);
+                    l++;
+                }
+            }
+            r++;
+        }
+        return max;
+
+    }
+}
