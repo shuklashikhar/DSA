@@ -1,0 +1,33 @@
+//given an Arrays fruits[] where fruits[i] is the type of fruits in the ith tree
+//we only have two baskets and each basket can only hold a single type of fruit
+//return the maximum number of fruits we can pick from trees/return number of trees
+// we use to pointers left and right 
+//add the fruits in the map with frequency and update max value each time 
+//if map size>2(number of trees become >2) start removing fruits from left till map size becomes 2 again
+
+import java.util.*;
+public class fruitsintobaskets {
+    public static void main(String[] args) {
+        int[] fruits={1,2,3,2,2};
+        System.out.println(fun(fruits));
+    }
+    public static int fun(int[] fruits)
+    {
+        HashMap<Integer,Integer> map=new HashMap<>();
+        int l=0,r=0,max=0;
+        while(r<fruits.length)
+        {
+            map.put(fruits[r],map.getOrDefault(fruits[r],0)+1);
+            while(map.size()>2)
+            {
+                map.put(fruits[l], map.get(fruits[l])-1);
+                if(map.get(fruits[l])==0)
+                    map.remove(fruits[l]);
+                l++;
+            }
+            max=Math.max(max,r-l+1);
+            r++;
+        }
+        return max;
+    }
+}
