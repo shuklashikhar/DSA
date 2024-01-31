@@ -1,2 +1,2 @@
 # DSA
-Everythinh I Solve
+Everything I Solve
